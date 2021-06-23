@@ -1,0 +1,12 @@
+compile-android:
+    stage: precompile
+    image: registry.gitlab.com/kinjalik/tdlib-flutter-wrapper/android-tdlib-env:latest
+    script:
+        - set -o allexport; source $CI_PROJECT_DIR/tdlib-compile-android/links.env; set +o allexport
+        - git clone $TDLIB_REPOSITORY
+        - sh download_and_compile.sh
+    artifacts:
+        paths:
+            - $CI_PROJECT_DIR/tdlib-compile-android/td/example/libtdjsonandroid/libs
+        expires_in:
+            - 1 week
